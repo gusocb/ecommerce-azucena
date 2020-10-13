@@ -1,5 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+
 const app = express();
 
 require("dotenv").config();
@@ -12,6 +16,11 @@ mongoose
         useUnifiedTopology: true,
     })
     .then(() => console.log("Database Connected"));
+
+//Middlewares
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 //Server Port
 const port = process.env.PORT || 8000;
