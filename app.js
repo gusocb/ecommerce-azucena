@@ -13,7 +13,6 @@ mongoose
     })
     .then(() => console.log("Database Connected"));
 
-
 //Server Port
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
@@ -21,4 +20,4 @@ app.listen(port, () => {
 });
 
 //Routes
-app.use(require('./routes/user'))
+app.use("/api", require("./routes/user"));
