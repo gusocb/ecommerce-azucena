@@ -10,3 +10,13 @@ exports.signup = (req, res) => {
             res.status(400).json({ err });
         });
 };
+
+exports.signin = (req, res) => {
+    User.findByCredentials(req.body.email, req.body.password)
+        .then((user) => {
+            res.send(user);
+        })
+        .catch((e) => {
+            res.status(400).send();
+        });
+};
