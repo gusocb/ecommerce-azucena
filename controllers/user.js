@@ -1,22 +1,25 @@
 const User = require("../models/User");
 
-exports.signup = (req, res) => {
+exports.signup = async (req, res) => {
     const user = new User(req.body);
-    user.save()
-        .then((user) => {
-            res.status(200).json({ user });
-        })
-        .catch((err) => {
-            res.status(400).json({ err });
-        });
+
+    try {
+        await user.save();
+        const token = await user.generateAuthToken()
+        res.status(200).json({ user, token });
+    } catch (err) {
+        res.status(400).json({ err });
+    }
 };
 
-exports.signin = (req, res) => {
-    User.findByCredentials(req.body.email, req.body.password)
-        .then((user) => {
-            res.send(user);
-        })
-        .catch((e) => {
-            res.status(400).send();
-        });
+exports.signin = async (req, res) => {
+
+    try {
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        const token = await user.generateAuthToken()
+        res.send({user, token})
+    } catch (err) {
+        res.status(400).send()
+    }
+
 };
