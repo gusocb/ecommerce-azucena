@@ -20,3 +20,14 @@ exports.isAuth = async (req, res, next) => {
         res.status(401).send({ error: "Not authenticated, please login" });
     }
 };
+
+exports.isAdmin = (req, res, next) => {
+    try {
+        if (req.user.role !== 1) {
+            throw new Error();
+        }
+        next()
+    } catch (err) {
+        res.status(401).send({ error: "Not an admin. Go back" });
+    }
+};

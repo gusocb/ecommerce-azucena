@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const { all } = require("../routes/user");
 
 exports.signup = async (req, res) => {
     const user = new User(req.body);
@@ -28,6 +29,15 @@ exports.signin = async (req, res) => {
 exports.getMyUser = (req, res) => {
     res.send(req.user);
 };
+
+exports.getAllUsers = async (req, res) => {
+    try {
+        const allUsers = await User.find()
+        res.send(allUsers)
+    } catch (err) {
+        res.status(400).send()
+    }
+}
 
 exports.logout = async (req, res) => {
     try {
