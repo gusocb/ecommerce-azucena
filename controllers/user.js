@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const { all } = require("../routes/user");
 
 exports.signup = async (req, res) => {
     const user = new User(req.body);

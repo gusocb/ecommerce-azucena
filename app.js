@@ -30,3 +30,5 @@ app.listen(port, () => {
 
 //Routes
 app.use("/api", require("./routes/user"));
+app.use("/api", require("./routes/category"));
+
